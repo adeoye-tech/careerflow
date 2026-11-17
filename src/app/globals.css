@@ -1,26 +1,66 @@
+
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* CareerFlow brand colours */
+  --ivory: #F6F2EA;
+  --charcoal: #20231F;
+  --gold: #B59A72;
+  --taupe: #DCD5C9;
+  --sage: #777B70;
+  --white: #FFFFFF;
 }
+
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: var(--ivory);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold);
+  --color-taupe: var(--taupe);
+  --color-sage: var(--sage);
+  --color-white: var(--white);
+
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-dm-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global reset and page defaults */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-dm-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--white);
 }
