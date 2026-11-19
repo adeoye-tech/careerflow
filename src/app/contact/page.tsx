@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Reveal from "@/components/ui/Reveal";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name."),
@@ -21,6 +22,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const {
     register,
@@ -31,60 +33,101 @@ export default function ContactPage() {
     resolver: zodResolver(contactSchema),
   });
 
-  function onSubmit(data: ContactFormData) {
-    // Temporary demonstration only.
-    // We will connect this form to a real backend later.
-    console.log("Contact form submission:", data);
+  async function onSubmit(data: ContactFormData) {
+    setSubmitted(false);
+    setSubmitError("");
 
-    setSubmitted(true);
-    reset();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.error || "Unable to send your message. Please try again."
+        );
+      }
+
+      setSubmitted(true);
+      reset();
+    } catch (error) {
+      console.error("Contact form submission error:", error);
+
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again later."
+      );
+    }
   }
+
+  const inputClasses =
+    "w-full rounded-lg border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none transition-all placeholder:text-slate-400 focus:border-gold focus:ring-4 focus:ring-blue-500/10";
+
+  const labelClasses =
+    "mb-2 block text-sm font-semibold text-charcoal";
 
   return (
     <>
       {/* Contact hero */}
-      <section className="bg-ivory px-6 py-24 md:py-28 lg:px-10">
+      <section className="bg-white px-6 py-24 md:py-28 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-            Contact Us
-          </p>
+          <Reveal>
+            <span className="inline-flex rounded-full bg-pale-blue px-4 py-2 text-xs font-semibold text-blue-700">
+              CONTACT US
+            </span>
 
-          <h1 className="mt-6 max-w-4xl font-display text-5xl font-medium leading-tight text-charcoal sm:text-6xl lg:text-7xl">
-            Let's start a
-            <span className="italic text-gold"> conversation.</span>
-          </h1>
+            <h1 className="mt-8 max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-charcoal sm:text-6xl lg:text-7xl">
+              Let's start a
+              <span className="block text-gold">
+                conversation.
+              </span>
+            </h1>
 
-          <p className="mt-8 max-w-2xl text-base leading-8 text-sage sm:text-lg">
-            Have a question, need career support or want to explore
-            talent solutions? We'd love to hear from you.
-          </p>
+            <p className="mt-8 max-w-2xl text-base leading-8 text-sage sm:text-lg">
+              Have a question, need career support or want to explore
+              talent solutions? We'd love to hear from you.
+            </p>
+          </Reveal>
         </div>
       </section>
 
       {/* Contact content */}
-      <section className="bg-white px-6 py-24 md:py-32 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[0.8fr_1.2fr]">
+      <section className="bg-ivory px-6 py-24 md:py-32 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
 
           {/* Contact information */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-              Get in Touch
-            </p>
+          <Reveal>
+            <span className="inline-flex rounded-full bg-pale-blue px-4 py-2 text-xs font-semibold text-blue-700">
+              GET IN TOUCH
+            </span>
 
-            <h2 className="mt-5 font-display text-4xl leading-tight text-charcoal sm:text-5xl">
+            <h2 className="mt-7 text-4xl font-extrabold leading-tight tracking-tight text-charcoal sm:text-5xl">
               We're here to help you move forward.
             </h2>
 
-            <p className="mt-6 text-sm leading-8 text-sage">
+            <p className="mt-6 text-sm leading-8 text-sage sm:text-base">
               Whether you're an individual exploring your next
               career opportunity or an organisation looking for
               talent, send us a message.
             </p>
 
             <div className="mt-12 border-t border-taupe pt-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                Enquiries
-              </p>
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-lg text-gold">
+                  ↗
+                </span>
+
+                <h3 className="text-sm font-bold text-charcoal">
+                  Enquiries
+                </h3>
+              </div>
 
               <p className="mt-4 text-sm leading-7 text-sage">
                 Use the contact form to tell us what you need.
@@ -94,19 +137,28 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-8 border-t border-taupe pt-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                Our Promise
-              </p>
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-lg text-gold">
+                  ✦
+                </span>
 
-              <p className="mt-4 font-display text-2xl italic text-charcoal">
+                <h3 className="text-sm font-bold text-charcoal">
+                  Our Promise
+                </h3>
+              </div>
+
+              <p className="mt-4 text-xl font-bold leading-relaxed tracking-tight text-charcoal">
                 Building careers. Creating possibilities.
               </p>
             </div>
-          </div>
+          </Reveal>
 
           {/* Contact form */}
-          <div className="bg-ivory p-7 sm:p-10">
-            <h2 className="font-display text-3xl text-charcoal sm:text-4xl">
+          <Reveal
+            delay={0.15}
+            className="rounded-2xl border border-taupe bg-white p-7 shadow-sm sm:p-10"
+          >
+            <h2 className="text-3xl font-extrabold tracking-tight text-charcoal sm:text-4xl">
               Send us a message
             </h2>
 
@@ -114,13 +166,26 @@ export default function ContactPage() {
               Fill in the details below and tell us how we can help.
             </p>
 
+            {/* Success message */}
             {submitted && (
               <div
                 role="status"
-                className="mt-8 border border-green-700/30 bg-green-700/10 p-4 text-sm text-green-800"
+                aria-live="polite"
+                className="mt-8 rounded-lg border border-green-700/20 bg-green-50 p-4 text-sm leading-7 text-green-800"
               >
-                Your form passed validation! This is a demonstration;
-                your message has not been sent yet.
+                Your message has been sent successfully!
+                Thank you for contacting CareerFlow. We'll get back
+                to you as soon as possible.
+              </div>
+            )}
+
+            {/* Error message */}
+            {submitError && (
+              <div
+                role="alert"
+                className="mt-8 rounded-lg border border-red-700/20 bg-red-50 p-4 text-sm leading-7 text-red-700"
+              >
+                {submitError}
               </div>
             )}
 
@@ -131,10 +196,7 @@ export default function ContactPage() {
             >
               {/* Name */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="mb-2 block text-sm font-medium text-charcoal"
-                >
+                <label htmlFor="name" className={labelClasses}>
                   Full Name
                 </label>
 
@@ -143,7 +205,8 @@ export default function ContactPage() {
                   type="text"
                   placeholder="Enter your full name"
                   {...register("name")}
-                  className="w-full border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none transition-colors focus:border-gold"
+                  aria-invalid={!!errors.name}
+                  className={inputClasses}
                 />
 
                 {errors.name && (
@@ -155,10 +218,7 @@ export default function ContactPage() {
 
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-charcoal"
-                >
+                <label htmlFor="email" className={labelClasses}>
                   Email Address
                 </label>
 
@@ -167,7 +227,8 @@ export default function ContactPage() {
                   type="email"
                   placeholder="you@example.com"
                   {...register("email")}
-                  className="w-full border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none transition-colors focus:border-gold"
+                  aria-invalid={!!errors.email}
+                  className={inputClasses}
                 />
 
                 {errors.email && (
@@ -179,10 +240,7 @@ export default function ContactPage() {
 
               {/* Enquiry type */}
               <div>
-                <label
-                  htmlFor="enquiry"
-                  className="mb-2 block text-sm font-medium text-charcoal"
-                >
+                <label htmlFor="enquiry" className={labelClasses}>
                   What are you enquiring about?
                 </label>
 
@@ -190,24 +248,32 @@ export default function ContactPage() {
                   id="enquiry"
                   {...register("enquiry")}
                   defaultValue=""
-                  className="w-full border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none focus:border-gold"
+                  aria-invalid={!!errors.enquiry}
+                  className={inputClasses}
                 >
                   <option value="" disabled>
                     Select an enquiry type
                   </option>
+
                   <option value="career-support">
                     Career Development
                   </option>
+
                   <option value="job-opportunities">
                     Job Opportunities
                   </option>
+
                   <option value="interview-preparation">
                     Interview Preparation
                   </option>
+
                   <option value="employer">
                     Employer / Talent Solutions
                   </option>
-                  <option value="other">Other</option>
+
+                  <option value="other">
+                    Other
+                  </option>
                 </select>
 
                 {errors.enquiry && (
@@ -219,10 +285,7 @@ export default function ContactPage() {
 
               {/* Subject */}
               <div>
-                <label
-                  htmlFor="subject"
-                  className="mb-2 block text-sm font-medium text-charcoal"
-                >
+                <label htmlFor="subject" className={labelClasses}>
                   Subject
                 </label>
 
@@ -231,7 +294,8 @@ export default function ContactPage() {
                   type="text"
                   placeholder="What is your message about?"
                   {...register("subject")}
-                  className="w-full border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none transition-colors focus:border-gold"
+                  aria-invalid={!!errors.subject}
+                  className={inputClasses}
                 />
 
                 {errors.subject && (
@@ -243,10 +307,7 @@ export default function ContactPage() {
 
               {/* Message */}
               <div>
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-sm font-medium text-charcoal"
-                >
+                <label htmlFor="message" className={labelClasses}>
                   Your Message
                 </label>
 
@@ -255,7 +316,8 @@ export default function ContactPage() {
                   rows={5}
                   placeholder="Tell us how we can help..."
                   {...register("message")}
-                  className="w-full resize-y border border-taupe bg-white px-4 py-4 text-sm text-charcoal outline-none transition-colors focus:border-gold"
+                  aria-invalid={!!errors.message}
+                  className={`${inputClasses} resize-y`}
                 />
 
                 {errors.message && (
@@ -269,18 +331,24 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-charcoal px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-gold disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-lg bg-gold px-7 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isSubmitting ? "Submitting..." : "Send Message"}
+                {isSubmitting
+                  ? "Sending Message..."
+                  : "Send Message"}
+
+                <span className="ml-2" aria-hidden="true">
+                  →
+                </span>
               </button>
 
               <p className="text-xs leading-6 text-sage">
-                This demonstration form currently validates your details
-                in the browser. It does not send or store messages.
+                Your information will be used to respond to your
+                enquiry. Please do not include sensitive personal
+                information in your message.
               </p>
             </form>
-          </div>
-
+          </Reveal>
         </div>
       </section>
     </>

@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -14,36 +15,53 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-taupe/70 bg-ivory/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+    <header className="sticky top-0 z-50 border-b border-taupe bg-white/95 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
 
-        {/* Brand logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl font-semibold text-gold">↗</span>
-          <span className="font-display text-3xl font-semibold tracking-tight text-charcoal">
+        {/* Brand */}
+        <Link
+          href="/"
+          className="flex items-center gap-2"
+          onClick={() => setIsOpen(false)}
+        >
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold text-lg font-bold text-white">
+            C
+          </span>
+
+          <span className="text-xl font-extrabold tracking-tight text-charcoal">
             CareerFlow
           </span>
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-sage transition-colors hover:text-gold"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="hidden items-center gap-2 md:flex">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${
+                  isActive
+                    ? "bg-pale-blue text-gold"
+                    : "text-sage hover:bg-ivory hover:text-charcoal"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Desktop CTA */}
         <Link
           href="/contact"
-          className="hidden border border-charcoal px-5 py-3 text-sm font-medium text-charcoal transition-colors hover:bg-charcoal hover:text-white md:inline-flex"
+          className="hidden rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md md:inline-flex"
         >
           Get Started
         </Link>
@@ -54,7 +72,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          className="text-2xl text-charcoal md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-taupe text-xl text-charcoal transition-colors hover:bg-ivory md:hidden"
         >
           {isOpen ? "✕" : "☰"}
         </button>
@@ -62,23 +80,32 @@ export default function Navbar() {
 
       {/* Mobile navigation */}
       {isOpen && (
-        <div className="border-t border-taupe px-6 py-5 md:hidden">
-          <div className="flex flex-col gap-5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-charcoal hover:text-gold"
-              >
-                {link.label}
-              </Link>
-            ))}
+        <div className="border-t border-taupe bg-white px-6 py-6 md:hidden">
+          <div className="flex flex-col gap-3">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                    isActive
+                      ? "bg-pale-blue text-gold"
+                      : "text-charcoal hover:bg-ivory hover:text-gold"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="w-fit bg-charcoal px-5 py-3 text-sm text-white"
+              className="mt-2 w-fit rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-white"
             >
               Get Started
             </Link>

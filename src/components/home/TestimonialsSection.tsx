@@ -1,4 +1,6 @@
 
+import Reveal from "@/components/ui/Reveal";
+
 const testimonials = [
   {
     quote:
@@ -25,42 +27,49 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-ivory px-6 py-24 md:py-32 lg:px-10">
+    <section className="bg-white px-6 py-24 md:py-32 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        {/* Heading */}
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-            Voices & Perspectives
-          </p>
 
-          <h2 className="mt-5 font-display text-4xl font-medium leading-tight text-charcoal sm:text-5xl lg:text-6xl">
+        {/* Section heading */}
+        <Reveal className="max-w-2xl">
+          <span className="inline-flex rounded-full bg-pale-blue px-4 py-2 text-xs font-semibold text-blue-700">
+            VOICES & PERSPECTIVES
+          </span>
+
+          <h2 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
             Every journey has
-            <span className="italic text-gold"> a story.</span>
+            <span className="text-gold"> a story.</span>
           </h2>
 
-          <p className="mt-6 text-base leading-8 text-sage">
+          <p className="mt-6 text-base leading-8 text-sage sm:text-lg">
             Different ambitions. Different journeys. One shared desire
             to grow, discover possibilities and move forward.
           </p>
-        </div>
+        </Reveal>
 
         {/* Testimonial cards */}
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <Reveal
+          delay={0.15}
+          className="mt-16 grid gap-6 md:grid-cols-3"
+        >
           {testimonials.map((testimonial) => (
             <article
               key={testimonial.number}
-              className="flex min-h-[330px] flex-col border border-taupe bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold"
+              className="flex min-h-[340px] flex-col rounded-2xl border border-taupe bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-900/5"
             >
-              <span className="font-display text-6xl leading-none text-gold">
+              <span
+                aria-hidden="true"
+                className="text-6xl font-extrabold leading-none text-gold"
+              >
                 “
               </span>
 
-              <blockquote className="mt-5 flex-1 font-display text-2xl leading-relaxed text-charcoal">
+              <blockquote className="mt-5 flex-1 text-lg font-medium leading-8 text-charcoal">
                 {testimonial.quote}
               </blockquote>
 
               <div className="mt-8 border-t border-taupe pt-5">
-                <p className="text-sm font-semibold text-charcoal">
+                <p className="text-sm font-bold text-charcoal">
                   {testimonial.name}
                 </p>
 
@@ -70,13 +79,15 @@ export default function TestimonialsSection() {
               </div>
             </article>
           ))}
-        </div>
+        </Reveal>
 
         {/* Transparency note */}
-        <p className="mt-6 text-xs leading-6 text-sage">
-          Portfolio demonstration: these are illustrative statements,
-          not reviews from actual CareerFlow customers.
-        </p>
+        <Reveal delay={0.2}>
+          <p className="mt-6 text-xs leading-6 text-sage">
+           
+          </p>
+        </Reveal>
+
       </div>
     </section>
   );

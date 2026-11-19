@@ -1,3 +1,6 @@
+
+import Reveal from "@/components/ui/Reveal";
+
 const reasons = [
   {
     number: "01",
@@ -25,47 +28,53 @@ export default function WhyChooseUs() {
       <div className="mx-auto max-w-7xl">
 
         {/* Section heading */}
-        <div className="grid gap-8 md:grid-cols-2 md:items-end">
+        <Reveal className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-              The CareerFlow Difference
-            </p>
+            <span className="inline-flex rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-xs font-semibold text-blue-300">
+              THE CAREERFLOW DIFFERENCE
+            </span>
 
-            <h2 className="mt-5 font-display text-4xl font-medium leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               More than opportunities.
-              <span className="block italic text-gold">
+              <span className="block text-blue-400">
                 A partner in progress.
               </span>
             </h2>
           </div>
 
-          <p className="max-w-lg text-sm leading-8 text-white/65 md:justify-self-end">
+          <p className="max-w-lg text-sm leading-8 text-slate-300 md:justify-self-end sm:text-base">
             Building a meaningful career takes more than finding a job.
             It takes preparation, direction and access to the right
             opportunities. That is where CareerFlow comes in.
           </p>
-        </div>
+        </Reveal>
 
         {/* Reasons */}
-        <div className="mt-20 grid gap-10 border-t border-white/20 pt-10 md:grid-cols-3 md:gap-8">
+        <Reveal
+          delay={0.15}
+          className="mt-20 grid gap-6 md:grid-cols-3"
+        >
           {reasons.map((reason) => (
-            <article key={reason.number}>
-              <span className="font-display text-4xl text-gold">
+            <article
+              key={reason.number}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-white/[0.07]"
+            >
+              <span className="text-sm font-bold tracking-widest text-blue-400">
                 {reason.number}
               </span>
 
-              <h3 className="mt-8 font-display text-3xl font-medium">
+              <h3 className="mt-8 text-2xl font-bold tracking-tight text-white">
                 {reason.title}
               </h3>
 
-              <p className="mt-5 text-sm leading-7 text-white/65">
+              <p className="mt-5 text-sm leading-7 text-slate-300">
                 {reason.description}
               </p>
 
-              <div className="mt-8 h-px w-12 bg-gold" />
+              <div className="mt-8 h-1 w-10 rounded-full bg-blue-500" />
             </article>
           ))}
-        </div>
+        </Reveal>
 
       </div>
     </section>

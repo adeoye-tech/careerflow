@@ -1,4 +1,4 @@
-"use client"
+
 import Link from "next/link";
 
 const footerLinks = [
@@ -14,18 +14,21 @@ export default function Footer() {
     <footer className="bg-charcoal px-6 pb-8 pt-16 text-white lg:px-10">
       <div className="mx-auto max-w-7xl">
 
-        <div className="grid gap-12 border-b border-white/15 pb-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-3">
 
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-2">
-              <span className="text-2xl text-gold">↗</span>
-              <span className="font-display text-3xl font-semibold">
+            <Link href="/" className="inline-flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold text-lg font-bold text-white">
+                C
+              </span>
+
+              <span className="text-2xl font-extrabold tracking-tight">
                 CareerFlow
               </span>
             </Link>
 
-            <p className="mt-5 max-w-xs text-sm leading-7 text-white/60">
+            <p className="mt-5 max-w-xs text-sm leading-7 text-slate-300">
               Building careers. Creating possibilities.
               Empowering people and connecting talent with opportunity.
             </p>
@@ -33,7 +36,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+            <h3 className="text-sm font-bold">
               Explore
             </h3>
 
@@ -42,7 +45,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/65 transition-colors hover:text-gold"
+                    className="text-sm text-slate-300 transition-colors hover:text-blue-400"
                   >
                     {link.label}
                   </Link>
@@ -53,31 +56,32 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              Get in Touch
+            <h3 className="text-sm font-bold">
+              Let's Connect
             </h3>
 
-            <p className="mt-6 max-w-xs text-sm leading-7 text-white/65">
+            <p className="mt-6 max-w-xs text-sm leading-7 text-slate-300">
               Have a question or want to explore how CareerFlow can
               support your next step?
             </p>
 
             <Link
               href="/contact"
-              className="mt-5 inline-flex items-center gap-2 border-b border-gold pb-2 text-sm font-medium text-white transition-colors hover:text-gold"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
             >
               Contact Us
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
 
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-4 pt-8 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
-         <p>
-  © 2026 CareerFlow. All rights reserved.
-</p>
+        <div className="flex flex-col gap-4 pt-8 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © 2026 CareerFlow. All rights reserved.
+          </p>
+
           <p>
             Building careers. Creating possibilities.
           </p>

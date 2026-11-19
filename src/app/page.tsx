@@ -6,6 +6,7 @@ import ProcessSection from "@/components/home/ProcessSection";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
+import FAQSection from "@/components/home/FAQSection";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <WhyChooseUs />
       <TestimonialsSection />
       <CTASection />
+      <FAQSection />
     </>
   );
 }

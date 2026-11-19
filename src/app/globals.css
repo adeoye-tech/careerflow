@@ -1,18 +1,18 @@
 
 @import "tailwindcss";
 
-
 :root {
-  /* CareerFlow brand colours */
-  --ivory: #F6F2EA;
-  --charcoal: #20231F;
-  --gold: #B59A72;
-  --taupe: #DCD5C9;
-  --sage: #777B70;
+  /* CareerFlow modern colour palette */
+  --ivory: #F8FAFC;
+  --charcoal: #0F172A;
+  --gold: #2563EB;
+  --taupe: #E2E8F0;
+  --sage: #64748B;
   --white: #FFFFFF;
+  --pale-blue: #EFF6FF;
 }
 
-
+/* Make brand colours and fonts available as Tailwind utilities */
 @theme inline {
   --color-ivory: var(--ivory);
   --color-charcoal: var(--charcoal);
@@ -20,12 +20,13 @@
   --color-taupe: var(--taupe);
   --color-sage: var(--sage);
   --color-white: var(--white);
+  --color-pale-blue: var(--pale-blue);
 
-  --font-display: var(--font-cormorant);
+  --font-display: var(--font-manrope);
   --font-body: var(--font-dm-sans);
 }
 
-/* Global reset and page defaults */
+/* Global reset */
 * {
   box-sizing: border-box;
 }
@@ -43,14 +44,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Modern typography */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-cormorant), serif;
-  font-weight: 500;
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
 }
 
 button,
