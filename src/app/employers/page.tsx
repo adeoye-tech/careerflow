@@ -1,6 +1,28 @@
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
+
+export const metadata: Metadata = {
+  title: "For Employers",
+
+  description:
+    "Explore CareerFlow's proposed talent sourcing, recruitment support and candidate matching solutions designed to help organisations discover suitable talent.",
+
+  openGraph: {
+    title: "For Employers | CareerFlow Talent Solutions",
+    description:
+      "Discover proposed talent sourcing, recruitment support and candidate matching solutions with CareerFlow.",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "For Employers | CareerFlow Talent Solutions",
+    description:
+      "Explore talent sourcing, recruitment support and candidate matching solutions for organisations.",
+  },
+};
 
 const benefits = [
   {

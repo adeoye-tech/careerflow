@@ -1,6 +1,28 @@
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
+
+export const metadata: Metadata = {
+  title: "Our Services",
+
+  description:
+    "Explore CareerFlow's proposed career development, job opportunity, interview preparation and talent solutions services for professionals and organisations.",
+
+  openGraph: {
+    title: "CareerFlow Services | Career Growth and Talent Solutions",
+    description:
+      "Discover career development resources, job opportunities, interview preparation and talent solutions with CareerFlow.",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "CareerFlow Services | Career Growth and Talent Solutions",
+    description:
+      "Explore career development, job opportunities, interview preparation and talent solutions.",
+  },
+};
 
 const services = [
   {

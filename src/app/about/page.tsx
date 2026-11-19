@@ -1,6 +1,28 @@
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
+
+export const metadata: Metadata = {
+  title: "About Us",
+
+  description:
+    "Learn about CareerFlow, our mission, vision and values. Discover our approach to career development, professional growth and talent solutions.",
+
+  openGraph: {
+    title: "About CareerFlow | Our Mission and Vision",
+    description:
+      "Discover the ideas, values and vision behind CareerFlow and our commitment to connecting ambition with opportunity.",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "About CareerFlow | Our Mission and Vision",
+    description:
+      "Learn about CareerFlow's vision for career development, professional growth and meaningful opportunities.",
+  },
+};
 
 const values = [
   {

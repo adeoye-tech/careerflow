@@ -2,15 +2,26 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    const contactEmail = process.env.CONTACT_EMAIL;
+
+    // Check email configuration
+    if (!apiKey || !contactEmail) {
+      console.error("Missing Resend environment variables.");
+
+      return NextResponse.json(
+        { error: "Email service is not configured." },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
 
     const { name, email, enquiry, subject, message } = body;
 
-    // Basic server-side validation
+    // Validate required fields
     if (
       !name ||
       !email ||
@@ -45,9 +56,12 @@ export async function POST(request: Request) {
       );
     }
 
+    // Initialize Resend when the API is called
+    const resend = new Resend(apiKey);
+
     const { data, error } = await resend.emails.send({
       from: "CareerFlow Contact <onboarding@resend.dev>",
-      to: process.env.CONTACT_EMAIL!,
+      to: contactEmail,
       replyTo: email,
       subject: `CareerFlow Enquiry: ${subject}`,
       text: `

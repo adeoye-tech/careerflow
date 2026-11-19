@@ -19,7 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://careerflow.example.com"),
+ metadataBase: new URL("https://careerflow-self.vercel.app"),
 
   title: {
     default: "CareerFlow | Building Careers. Creating Possibilities.",
